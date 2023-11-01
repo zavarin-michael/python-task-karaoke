@@ -17,5 +17,27 @@ poetry install
 poetry run pre-commit install
 ```
 
+### 4. Start app:
+```shell
+poetry run python run python-task-karaoke/main.py
+```
+
+## Linters | Formatters
+
+### black
+```shell
+poetry run black python-task-karaoke
+```
+
+### flake8
+```shell
+poetry run flake8 python-task-karaoke
+```
+
+### isort
+```shell
+poetry run isort python-task-karaoke
+```
+
 # useful links
 https://translated.turbopages.org/proxy_u/en-ru.ru.60108d93-6322e421-301b6b31-74722d776562/https/en.wikipedia.org/wiki/LRC_(file_format)

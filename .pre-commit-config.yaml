@@ -12,14 +12,14 @@ repos:
     hooks:
         - id: flake8
           name: flake8
-          entry: flake8
-          language: system
+          entry: flake8 python-task-karaoke
+          language: python
           types: [python]
           always_run: true
         - id: black
           name: black
-          entry: black
-          language: system
+          entry: black python-task-karaoke
+          language: python
           types: [python]
         - id: isort
           name: isort (python)
