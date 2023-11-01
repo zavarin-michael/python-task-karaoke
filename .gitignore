@@ -129,5 +129,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# generated microfone voices
-*.wav
+# generated microfone voice
