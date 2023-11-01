@@ -12,6 +12,11 @@ pyaudio = "0.2.12"
 pygame = "^2.5.2"
 pre-commit = "^3.5.0"
 
+[tool.poetry.group.development.dependencies]
+flake8 = "^6.1.0"
+black = "^23.10.1"
+isort = "^5.12.0"
+
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,9 +1,9 @@
-import pyaudio
 import wave
 
+import pyaudio
 from PyQt6 import QtCore, QtWidgets, sip
 from PyQt6.QtCore import QThread, QUrl
-from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
+from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
 from PyQt6.QtWidgets import QMainWindow, QWidget
 
 filename = "output_sound.wav"
@@ -19,17 +19,16 @@ class Recording(QThread):
         sample_format = pyaudio.paInt16  # 16 бит на выборку
         channels = 1
         rate = 44100  # Запись со скоростью 44100 выборок(samples) в секунду
-        seconds = 3
         p = pyaudio.PyAudio()  # Создать интерфейс для PortAudio
 
-        print('Started recording...')
+        print("Started recording...")
 
         stream = p.open(
             format=sample_format,
             channels=channels,
             rate=rate,
             frames_per_buffer=chunk,
-            input=True
+            input=True,
         )
 
         frames = []  # Инициализировать массив для хранения кадров
@@ -46,14 +45,14 @@ class Recording(QThread):
         # Завершить интерфейс PortAudio
         p.terminate()
 
-        print('Finished recording!')
+        print("Finished recording!")
 
         # Сохранить записанные данные в виде файла WAV
-        wf = wave.open(filename, 'wb')
+        wf = wave.open(filename, "wb")
         wf.setnchannels(channels)
         wf.setsampwidth(p.get_sample_size(sample_format))
         wf.setframerate(rate)
-        wf.writeframes(b''.join(frames))
+        wf.writeframes(b"".join(frames))
         wf.close()
 
 
@@ -61,9 +60,9 @@ class RecordingWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.dict = {
-            'output_sound.wav': [],
+            "output_sound.wav": [],
         }
-        self.song = ''
+        self.song = ""
         self.widget = QWidget(self)
         self.player = QMediaPlayer(self)
         self.audioOutput = QAudioOutput()
@@ -78,14 +77,14 @@ class RecordingWindow(QMainWindow):
         self.box = QtWidgets.QVBoxLayout(self)
 
         self.setFixedSize(250, 120)
-        self.setWindowTitle('Recording')
+        self.setWindowTitle("Recording")
 
         for line, song in enumerate(self.dict):
-            play_btn = QtWidgets.QPushButton('Play')
+            play_btn = QtWidgets.QPushButton("Play")
             print(song)
             play_btn.clicked.connect(lambda ch, song=song: self.play(song))
 
-            pause_btn = QtWidgets.QPushButton('Pause')
+            pause_btn = QtWidgets.QPushButton("Pause")
             pause_btn.setEnabled(False)
             pause_btn.clicked.connect(self.pause)
 
@@ -107,7 +106,7 @@ class RecordingWindow(QMainWindow):
         self.timer.start(1000)
 
     def PlayMode(self):
-        if self.Play_Pause == False and self.player is not None:
+        if not self.Play_Pause and self.player is not None:
             self.qsl.setMinimum(0)
             self.qsl.setMaximum(self.player.duration())
             self.qsl.setValue(self.qsl.value() + 1000)

@@ -3,15 +3,14 @@ import datetime
 import os
 import time
 
+import midi_parser
 import pygame
 from PyQt6 import sip
-from PyQt6.QtCore import QUrl, QThread, Qt
+from PyQt6.QtCore import Qt, QThread, QUrl
 from PyQt6.QtGui import QFont
-from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
+from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
-from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QLabel, QWidget
-
-import midi_parser
+from PyQt6.QtWidgets import QLabel, QMainWindow, QVBoxLayout, QWidget
 from recording import Recording, RecordingWindow
 
 
@@ -19,7 +18,7 @@ def get_label():
     label = QLabel()
     label.setMaximumHeight(50)
     label.setFont(QFont("Calibri", 15))
-    label.setText(f'<font color="green"></font><font color="blue"></font>')
+    label.setText('<font color="green"></font><font color="blue"></font>')
     label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     return label
@@ -32,7 +31,7 @@ class SongWindow(QMainWindow):
         self.window = QWidget()
         self.layout = QVBoxLayout()
         self.window.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
-        self.window.setStyleSheet('background-color: black;')
+        self.window.setStyleSheet("background-color: black;")
 
         self.videoWidget = QVideoWidget()
 
@@ -42,7 +41,9 @@ class SongWindow(QMainWindow):
         self.audioOutput = QAudioOutput()
         self.player.setAudioOutput(self.audioOutput)
         print(QUrl.fromLocalFile(os.path.join("python-task-karaoke", "giga.mp4")))
-        self.player.setSource(QUrl.fromLocalFile(os.path.join("python-task-karaoke", "giga.mp4")))
+        self.player.setSource(
+            QUrl.fromLocalFile(os.path.join("python-task-karaoke", "giga.mp4"))
+        )
         self.audioOutput.setVolume(0)
         self.player.play()
         self.player.mediaStatusChanged.connect(self.status_changed)
@@ -90,7 +91,6 @@ class SongWindow(QMainWindow):
 
 
 class Timer(QThread):
-
     def __init__(self, lines, track):
         self.lines = lines
         self.track = track
@@ -125,12 +125,14 @@ class Timer(QThread):
             if m.karlinea[0] == "":
                 for iline in range(3):
                     self.lines[iline].setText(
-                        f'<font color="green">{preva[iline]}</font><font color="white">{prevb[iline]}</font>')
+                        f'<font color="green">{preva[iline]}</font><font color="white">{prevb[iline]}</font>'
+                    )
                 chet += 1
             else:
                 for iline in range(3):
                     self.lines[iline].setText(
-                        f'<font color="green">{m.karlinea[iline]}</font><font color="white">{m.karlineb[iline]}</font>')
+                        f'<font color="green">{m.karlinea[iline]}</font><font color="white">{m.karlineb[iline]}</font>'
+                    )
                 chet = 0
 
             if chet == 0 or chet > 3:
@@ -143,6 +145,6 @@ class Timer(QThread):
                         prevb[i] = ""
                 chet = 0
 
-            time.sleep(.1)
+            time.sleep(0.1)
 
         time.sleep(1)

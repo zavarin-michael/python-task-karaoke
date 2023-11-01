@@ -1,5 +1,7 @@
-punctuation = ['_']
-whitespace = [' ']
+# flake8: noqa
+
+punctuation = ["_"]
+whitespace = [" "]
 
 
 def distance(a, b):
@@ -12,7 +14,11 @@ def distance(a, b):
     for i in range(1, m + 1):
         previous_row, current_row = current_row, [i] + [0] * n
         for j in range(1, n + 1):
-            add, delete, change = previous_row[j] + 1, current_row[j - 1] + 1, previous_row[j - 1]
+            add, delete, change = (
+                previous_row[j] + 1,
+                current_row[j - 1] + 1,
+                previous_row[j - 1],
+            )
             if a[j - 1] != b[i - 1]:
                 change += 1
             current_row[j] = min(add, delete, change)
@@ -22,7 +28,7 @@ def distance(a, b):
 def transliterate(text):
     text = text.lower()
     for c in punctuation + whitespace:
-        text = text.replace(c, '')
+        text = text.replace(c, "")
     return text
 
 
@@ -35,13 +41,13 @@ def search(text, dict):
             lt[name][name] = distance(text, name)
         elif len(name) > len(text):
             for i in range(0, len(name)):
-                q = name[i:len(text) + i]
+                q = name[i : len(text) + i]
                 if len(text) > len(q):
                     break
                 lt[name][q] = distance(text, q)
         elif len(name) < len(text):
             for i in range(0, len(text)):
-                q = text[i:len(name) + i]
+                q = text[i : len(name) + i]
                 if len(name) > len(q):
                     break
                 lt[name][q] = distance(text, q)

@@ -1,9 +1,15 @@
 import os
 
 from PyQt6.QtGui import QAction, QFont
-from PyQt6.QtWidgets import QMainWindow, QPushButton, QFileDialog, QWidget, QLabel, QListWidget, QHBoxLayout, \
-    QVBoxLayout, QLineEdit, QCheckBox
-
+from PyQt6.QtWidgets import (
+    QCheckBox,
+    QLineEdit,
+    QListWidget,
+    QMainWindow,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+)
 from search_logic import search
 from song_window import SongWindow
 
@@ -31,9 +37,9 @@ def get_search_widget(func):
     return search
 
 
-def get_list_widget(l: list):
+def get_list_widget(widget_list: list):
     list = QListWidget()
-    for file in l:
+    for file in widget_list:
         list.addItem(os.path.splitext(str(file))[0])
     list.setFont(QFont("Calibri", 15))
     return list
@@ -77,7 +83,7 @@ class MainWindow(QMainWindow):
         self.window.show()
 
         self.setFixedSize(400, 600)
-        self.setWindowTitle('Python Karaoke')
+        self.setWindowTitle("Python Karaoke")
 
         self.show()
 
@@ -91,12 +97,15 @@ class MainWindow(QMainWindow):
 
     def on_button_clicked(self, action):
         if self.list.currentItem() is not None:
-            self.song_window = SongWindow(os.path.join("tracks", f"{str(self.list.currentItem().text())}.kar"),
-                                          self.checkbox.isChecked(), self)
+            self.song_window = SongWindow(
+                os.path.join("tracks", f"{str(self.list.currentItem().text())}.kar"),
+                self.checkbox.isChecked(),
+                self,
+            )
             self.song_window.show()
 
     def open_window(self, s, window):
-        if len(list(filter(lambda x: type(x) == window, self.windows))) == 0:
+        if len(list(filter(lambda x: isinstance(x, window), self.windows))) == 0:
             t = window(self)
             self.windows.append(t)
             t.show()

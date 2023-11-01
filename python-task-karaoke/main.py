@@ -1,10 +1,10 @@
-from PyQt6.QtWidgets import QApplication
-
 from main_window import MainWindow
+from PyQt6.QtWidgets import QApplication
 
 
 def main():
     import pyaudio
+
     p = pyaudio.PyAudio()
     for i in range(p.get_device_count()):
         print(str(i).encode("cp1251").decode("utf-8"))
