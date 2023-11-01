@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "python-task-karaoke"
+version = "0.1.0"
+description = "Repo for FIIT karaoke python task"
+authors = ["Михаил <33755295+zavarin-michael@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pyqt6 = "6.3.0"
+pyaudio = "0.2.12"
+pygame = "^2.5.2"
+pre-commit = "^3.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

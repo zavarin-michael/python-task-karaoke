@@ -91,7 +91,7 @@ class MainWindow(QMainWindow):
 
     def on_button_clicked(self, action):
         if self.list.currentItem() is not None:
-            self.song_window = SongWindow(f"tracks\{str(self.list.currentItem().text())}.kar",
+            self.song_window = SongWindow(os.path.join("tracks", f"{str(self.list.currentItem().text())}.kar"),
                                           self.checkbox.isChecked(), self)
             self.song_window.show()
 

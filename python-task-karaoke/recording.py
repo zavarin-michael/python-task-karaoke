@@ -17,7 +17,7 @@ class Recording(QThread):
     def run(self):
         chunk = 1024  # Запись кусками по 1024 сэмпла
         sample_format = pyaudio.paInt16  # 16 бит на выборку
-        channels = 2
+        channels = 1
         rate = 44100  # Запись со скоростью 44100 выборок(samples) в секунду
         seconds = 3
         p = pyaudio.PyAudio()  # Создать интерфейс для PortAudio
